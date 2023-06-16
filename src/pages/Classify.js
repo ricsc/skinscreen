@@ -13,7 +13,7 @@ import './Classify.css';
 import 'cropperjs/dist/cropper.css';
 
 
-const MODEL_PATH = '/model/model.json';
+const MODEL_PATH = '/skinscreen/model/model.json';
 
 
 const IMAGE_WIDTH = 256;
