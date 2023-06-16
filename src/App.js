@@ -53,7 +53,7 @@ class App extends Component {
             }
           </Container>
           <Container>
-            <Routes />
+            <Routes /skinscreen>
           </Container>
         </div>
     );
