@@ -4,5 +4,5 @@ applications:
    memory: 512M
    disk_quota: 2048M
    routes:
-   - route: ricsc.github.io
+   - route: ricsc.github.io/skinscreen
    command: npm run start-prod
