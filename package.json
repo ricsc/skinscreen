@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
+  "homepage": "https://ricsc.github.io/skinscreen",
   "dependencies": {
     "@tensorflow/tfjs": "^1.2.7",
     "bootstrap": "^4.3.1",
@@ -25,7 +26,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-prod": "node server.js",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,6 +47,7 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "gh-pages": "^5.0.0"
   }
 }
