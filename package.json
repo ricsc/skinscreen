@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "homepage": "https://ricsc.github.io/",
+  "homepage": "https://ricsc.github.io/skinscreen/",
   "dependencies": {
     "@tensorflow/tfjs": "^1.2.7",
     "bootstrap": "^4.3.1",
