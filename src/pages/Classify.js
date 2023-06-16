@@ -14,8 +14,12 @@ import 'cropperjs/dist/cropper.css';
 
 
 const MODEL_PATH = '/model/model.json';
-const IMAGE_SIZE = 224;
-const CANVAS_SIZE = 224;
+
+
+const IMAGE_WIDTH = 256;
+const IMAGE_HEIHT = 192;
+const CANVAS_SIZE = 256;
+
 const TOPK_PREDICTIONS = 5;
 
 const INDEXEDDB_DB = 'tensorflowjs';
@@ -100,7 +104,7 @@ export default class Classify extends Component {
     this.initWebcam();
 
     // Warm up model.
-    let prediction = tf.tidy(() => this.model.predict(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3])));
+    let prediction = tf.tidy(() => this.model.predict(tf.zeros([null, IMAGE_HEIHT, IMAGE_WIDTH, 3])));
     prediction.dispose();
   }
 
@@ -181,7 +185,7 @@ export default class Classify extends Component {
 
     // Process and resize image before passing in to model.
     const imageData = await this.processImage(image);
-    const resizedImage = tf.image.resizeBilinear(imageData, [IMAGE_SIZE, IMAGE_SIZE]);
+    const resizedImage = tf.image.resizeBilinear(imageData, [IMAGE_HEIHT, IMAGE_WIDTH]);
 
     const logits = this.model.predict(resizedImage);
     const probabilities = await logits.data();
@@ -214,7 +218,7 @@ export default class Classify extends Component {
 
     const imageCapture = await this.webcam.capture();
 
-    const resized = tf.image.resizeBilinear(imageCapture, [IMAGE_SIZE, IMAGE_SIZE]);
+    const resized = tf.image.resizeBilinear(imageCapture, [IMAGE_HEIHT, IMAGE_WIDTH]);
     const imageData = await this.processImage(resized);
     const logits = this.model.predict(imageData);
     const probabilities = await logits.data();
