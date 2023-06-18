@@ -18,7 +18,7 @@ const MODEL_PATH = '/skinscreen/model/model.json';
 
 const IMAGE_WIDTH = 256;
 const IMAGE_HEIHT = 192;
-const CANVAS_SIZE = 256;
+
 
 const TOPK_PREDICTIONS = 5;
 
@@ -104,7 +104,7 @@ export default class Classify extends Component {
     this.initWebcam();
 
     // Warm up model.
-    let prediction = tf.tidy(() => this.model.predict(tf.zeros([null, IMAGE_HEIHT, IMAGE_WIDTH, 3])));
+    let prediction = tf.tidy(() => this.model.predict(tf.zeros([null, IMAGE_HEIGHT, IMAGE_WIDTH, 3])));
     prediction.dispose();
   }
 
@@ -126,7 +126,7 @@ export default class Classify extends Component {
     try {
       this.webcam = await tf.data.webcam(
         this.refs.webcam,
-        {resizeWidth: CANVAS_SIZE, resizeHeight: CANVAS_SIZE, facingMode: 'environment'}
+        {resizeWidth: IMAGE_WIDTH, resizeHeight: IMAGE_HEIGHT, facingMode: 'environment'}
       );
     }
     catch (e) {
@@ -185,7 +185,7 @@ export default class Classify extends Component {
 
     // Process and resize image before passing in to model.
     const imageData = await this.processImage(image);
-    const resizedImage = tf.image.resizeBilinear(imageData, [IMAGE_HEIHT, IMAGE_WIDTH]);
+    const resizedImage = tf.image.resizeBilinear(imageData, [IMAGE_HEIGHT, IMAGE_WIDTH]);
 
     const logits = this.model.predict(resizedImage);
     const probabilities = await logits.data();
@@ -199,10 +199,10 @@ export default class Classify extends Component {
 
     // Draw thumbnail to UI.
     const context = this.refs.canvas.getContext('2d');
-    const ratioX = CANVAS_SIZE / croppedCanvas.width;
-    const ratioY = CANVAS_SIZE / croppedCanvas.height;
+    const ratioX = IMAGE_WIDTH / croppedCanvas.width;
+    const ratioY = IMAGE_HEIGHT / croppedCanvas.height;
     const ratio = Math.min(ratioX, ratioY);
-    context.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    context.clearRect(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
     context.drawImage(croppedCanvas, 0, 0,
                       croppedCanvas.width * ratio, croppedCanvas.height * ratio);
 
@@ -218,7 +218,7 @@ export default class Classify extends Component {
 
     const imageCapture = await this.webcam.capture();
 
-    const resized = tf.image.resizeBilinear(imageCapture, [IMAGE_HEIHT, IMAGE_WIDTH]);
+    const resized = tf.image.resizeBilinear(imageCapture, [IMAGE_HEIGHT, IMAGE_WIDTH]);
     const imageData = await this.processImage(resized);
     const logits = this.model.predict(imageData);
     const probabilities = await logits.data();
@@ -440,7 +440,7 @@ export default class Classify extends Component {
           { this.state.predictions.length > 0 &&
             <div className="classification-results">
               <h3>Predictions</h3>
-              <canvas ref="canvas" width={CANVAS_SIZE} height={CANVAS_SIZE} />
+              <canvas ref="canvas" width={IMAGE_WIDTH} height={IMAGE_HEIGHT} />
               <br />
               <ListGroup>
               {this.state.predictions.map((category) => {

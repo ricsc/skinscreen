@@ -1,6 +1,6 @@
 ---
 applications:
- - name: web-classify
+ - name: skinscreen
    memory: 512M
    disk_quota: 2048M
    routes:
