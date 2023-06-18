@@ -17,7 +17,7 @@ const MODEL_PATH = '/skinscreen/model/model.json';
 
 
 const IMAGE_WIDTH = 256;
-const IMAGE_HEIHT = 192;
+const IMAGE_HEIGHT = 192;
 
 
 const TOPK_PREDICTIONS = 5;
