@@ -416,7 +416,7 @@ export default class Classify extends Component {
                         src={this.state.file}
                         style={{height: 400, width: '100%'}}
                         guides={true}
-                        aspectRatio={1 / 1}
+                        aspectRatio={192 / 256}
                         viewMode={2}
                       />
                     </div>
