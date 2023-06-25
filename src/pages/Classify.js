@@ -178,7 +178,7 @@ export default class Classify extends Component {
   }
 
   classifyLocalImage = async () => {
-    this.setState({ isClassifying: true });
+    this.setState({ isClassifying: true }, () => console.log(this.state));
 
     const croppedCanvas = this.refs.cropper.getCroppedCanvas();
     const image = tf.tidy( () => tf.browser.fromPixels(croppedCanvas).toFloat());
@@ -216,6 +216,7 @@ export default class Classify extends Component {
 
 
   classifyWebcamImage = async () => {
+    this.setState({ isClassifying: true });
 
     const imageCapture = await this.webcam.capture();
 
@@ -243,9 +244,9 @@ export default class Classify extends Component {
     tensorData.dispose();
   }
 
-  classifyWebcamImageStart () {
+  classifyWebcamImageStart {
     this.setState({ isClassifying: true });
-    this.classifyWebcamImage();
+    this.classifyWebcamImage;
   }
 
   processImage = async (image) => {
@@ -395,7 +396,7 @@ export default class Classify extends Component {
                   <LoadButton
                     variant="primary"
                     size="lg"
-                    onClick={this.classifyWebcamImageStart}
+                    onClick={this.classifyWebcamImage}
                     isLoading={this.state.isClassifying}
                     text="Classify"
                     loadingText="Classifying..."
