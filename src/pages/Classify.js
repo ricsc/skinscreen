@@ -216,7 +216,7 @@ export default class Classify extends Component {
 
 
   classifyWebcamImage = async () => {
-    this.setState({ isClassifying: true });
+    this.setState({ isClassifying: true }, () => console.log(this.state));
 
     const imageCapture = await this.webcam.capture();
 
@@ -244,10 +244,6 @@ export default class Classify extends Component {
     tensorData.dispose();
   }
 
-  classifyWebcamImageStart {
-    this.setState({ isClassifying: true });
-    this.classifyWebcamImage;
-  }
 
   processImage = async (image) => {
     return tf.tidy(() => image.expandDims(0).toFloat().div(127).sub(1));
