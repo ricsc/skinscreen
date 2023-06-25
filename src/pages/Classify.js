@@ -213,8 +213,9 @@ export default class Classify extends Component {
     logits.dispose();
   }
 
+
+
   classifyWebcamImage = async () => {
-    this.setState({ isClassifying: true });
 
     const imageCapture = await this.webcam.capture();
 
@@ -240,6 +241,11 @@ export default class Classify extends Component {
     imageData.dispose();
     logits.dispose();
     tensorData.dispose();
+  }
+
+  classifyWebcamImageStart () {
+    this.setState({ isClassifying: true });
+    this.classifyWebcamImage();
   }
 
   processImage = async (image) => {
@@ -389,7 +395,7 @@ export default class Classify extends Component {
                   <LoadButton
                     variant="primary"
                     size="lg"
-                    onClick={this.classifyWebcamImage}
+                    onClick={this.classifyWebcamImageStart}
                     isLoading={this.state.isClassifying}
                     text="Classify"
                     loadingText="Classifying..."
