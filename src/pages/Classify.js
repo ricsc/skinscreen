@@ -178,7 +178,8 @@ export default class Classify extends Component {
   }
 
   classifyLocalImage = async () => {
-    this.setState({ isClassifying: true }, () => console.log(this.state));
+    this.setState({ isClassifying: true });
+    alert("Processing image will take some time, wait until classification is done.");
 
     const croppedCanvas = this.refs.cropper.getCroppedCanvas();
     const image = tf.tidy( () => tf.browser.fromPixels(croppedCanvas).toFloat());
@@ -216,7 +217,8 @@ export default class Classify extends Component {
 
 
   classifyWebcamImage = async () => {
-    this.setState({ isClassifying: true }, () => console.log(this.state));
+    this.setState({ isClassifying: true });
+    alert("Processing image will take some time, wait until classification is done.");
 
     const imageCapture = await this.webcam.capture();
 
